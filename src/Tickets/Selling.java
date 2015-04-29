@@ -56,7 +56,7 @@ public class Selling extends javax.swing.JFrame {
     public Selling() {
 
         initComponents();
-        logtoFile();
+        //logtoFile();
         DoConnect();
         setUser();
         
@@ -381,6 +381,7 @@ public class Selling extends javax.swing.JFrame {
         bankText = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btnUndo = new javax.swing.JButton();
+        btnPrintEvery = new javax.swing.JToggleButton();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         timeLabel = new javax.swing.JLabel();
@@ -1043,7 +1044,6 @@ public class Selling extends javax.swing.JFrame {
         });
 
         jButton11.setText("Print Receipt");
-        jButton11.setEnabled(false);
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
@@ -1075,6 +1075,13 @@ public class Selling extends javax.swing.JFrame {
         btnUndo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUndoActionPerformed(evt);
+            }
+        });
+
+        btnPrintEvery.setText("Press to print every transaction");
+        btnPrintEvery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintEveryActionPerformed(evt);
             }
         });
 
@@ -1158,11 +1165,14 @@ public class Selling extends javax.swing.JFrame {
                                             .addComponent(btnPrize, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(pnlAmountLayout.createSequentialGroup()
+                                                .addGap(35, 35, 35)
+                                                .addComponent(jButton18)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jButton11))
                                             .addGroup(pnlAmountLayout.createSequentialGroup()
-                                                .addGap(35, 35, 35)
-                                                .addComponent(jButton18))))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnPrintEvery)))
+                                        .addGap(48, 48, 48))
                                     .addGroup(pnlAmountLayout.createSequentialGroup()
                                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(pnlAmountLayout.createSequentialGroup()
@@ -1227,7 +1237,9 @@ public class Selling extends javax.swing.JFrame {
                         .addComponent(btnZero, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAmountLayout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                        .addGap(41, 41, 41)
+                        .addComponent(btnPrintEvery)
+                        .addGap(35, 35, 35)
                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlAmountLayout.createSequentialGroup()
                                 .addComponent(jButton11)
@@ -1502,7 +1514,7 @@ public class Selling extends javax.swing.JFrame {
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         //Tickets ticketsObject = new Tickets();
         Transaction transObject = new Transaction();
-        
+        StarCashDrawerTest kick = new StarCashDrawerTest();
         
 //        if(total1 != 0){
         total1 = Double.parseDouble(textTotal.getText());    
@@ -1529,6 +1541,13 @@ public class Selling extends javax.swing.JFrame {
             textTotal.setText("");
             prize.setPrizetotal(0);
             togbtnSetEnabledFalse();
+            
+             if (btnPrintEvery.isSelected()){
+                StarReceiptTest print = new StarReceiptTest();
+                print.runTest();
+                print.clearLines();
+             }
+             kick.runTest();
 //        }else{
 //            System.err.println("Total is set to 0");
 //            JOptionPane.showMessageDialog(this, "Can't close, total is 0");
@@ -1695,7 +1714,7 @@ public class Selling extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-
+        
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -1774,6 +1793,20 @@ public class Selling extends javax.swing.JFrame {
         }catch (Exception e) { e.printStackTrace(); }
     }//GEN-LAST:event_btnUndoActionPerformed
 
+    private void btnPrintEveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintEveryActionPerformed
+        // TODO add your handling code here:
+        if (btnPrintEvery.isSelected()){
+            textLog.append("\n ***********");
+        textLog.append("\n Printing enabled");
+        textLog.append("\n ***********");
+        } else{
+            textLog.append("\n ***********");
+        textLog.append("\n Printing disabled ");
+        textLog.append("\n ***********");
+        }
+        
+    }//GEN-LAST:event_btnPrintEveryActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1823,6 +1856,7 @@ public class Selling extends javax.swing.JFrame {
     private javax.swing.JButton btnHundred;
     private javax.swing.JButton btnNine;
     private javax.swing.JButton btnOne;
+    private javax.swing.JToggleButton btnPrintEvery;
     private javax.swing.JButton btnPrize;
     private javax.swing.JButton btnSale;
     private javax.swing.JButton btnSeven;

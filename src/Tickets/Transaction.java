@@ -23,17 +23,15 @@ public class Transaction {
     public int invoiceNum;
     public int sessionid;
     public int sales = 0, prizes = 0;
-    
+    StarReceiptTest print = new StarReceiptTest();
     public void Transaction(int bin, String serial, int saleAmount, int prizeAmount, String gameName, int invoice) throws SQLException, Exception {
         PreparedStatement addTrans = null;
         String addTransString = "INSERT INTO fire_tickets.till_tape (serial, name, time, sale_amount, prize_amount, users_user_id, customers_cust_id, locations_loc_id, invoice) VALUES (?, ?, ?, ?, ?, '3', '3', '1', ?)";
-        setInvoice();
-        invoice = getInvoice();
         
         try{
             c = DbConnect.getConnection();
             addTrans = c.prepareStatement(addTransString, PreparedStatement.RETURN_GENERATED_KEYS);
-            
+            print.formatLine(saleAmount, prizeAmount, serial, gameName);
             c.setAutoCommit(false);
             addTrans.setString(1, serial);
             addTrans.setString(2, gameName);
