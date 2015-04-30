@@ -125,7 +125,7 @@ public class StarReceiptTest implements OutputCompleteListener, StatusUpdateList
 				if (printer.getCapRecBitmap() == true) {
 					// print an image file
 					try {
-						printer.printBitmap(POSPrinterConst.PTR_S_RECEIPT, "C:\\Users\\Switcher\\Documents\\Dropbox\\Fire Tickets\\src\\Tickets\\star.gif", POSPrinterConst.PTR_BM_ASIS, POSPrinterConst.PTR_BM_CENTER);
+						printer.printBitmap(POSPrinterConst.PTR_S_RECEIPT, "\\\\WIN-UI54OA8049S\\Treasurer\\dist\\Fire Tickets\\src\\Tickets\\star.gif", POSPrinterConst.PTR_BM_ASIS, POSPrinterConst.PTR_BM_CENTER);
 					} catch (JposException e) {
 						if (e.getErrorCode() != JposConst.JPOS_E_NOEXIST) {
 							// error other than file not exist - propogate it
