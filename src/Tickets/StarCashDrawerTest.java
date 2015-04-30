@@ -59,7 +59,7 @@ public class StarCashDrawerTest implements StatusUpdateListener {
 			cashDrawer.addStatusUpdateListener(this);
 
 			// open the cashDrawer object according to the entry names defined in jpos.xml
-			cashDrawer.open("TSP100_CashDrawer_2");
+			cashDrawer.open("TSP100_CashDrawer_1");
 
 			// claim exclusive usage of the cashDrawer object
 			cashDrawer.claim(1);
