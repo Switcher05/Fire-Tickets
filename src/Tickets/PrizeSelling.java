@@ -32,6 +32,8 @@ int[] prizeAmt;
 int[] prizeAll;
 int prizetotal;
 int bin2;
+int lsrem = 0;
+int lsamt = 0;
 String gameName;
 String serial;
 
@@ -67,6 +69,7 @@ String serial;
             prizeRem[12] = rs.getInt("prize_rem13");
             prizeRem[13] = rs.getInt("prize_rem14");
             prizeRem[14] = rs.getInt("prize_rem15");
+            lsrem = rs.getInt("last_sale_rem");
             String part_num = rs.getString("game_templates_part_num");
             System.out.println("Prize 1 rem: " + prize_rem1 + " Prize 2 rem: " + prize_rem2);
             pstmt = con.prepareStatement("SELECT * FROM game_templates WHERE part_num = ? ");
@@ -106,6 +109,7 @@ String serial;
             prizeAll[12] = rs.getInt("prize_all13");
             prizeAll[13] = rs.getInt("prize_all14");
             prizeAll[14] = rs.getInt("prize_all15");
+            lsamt = rs.getInt("last_sale");
             System.out.println("Prize amount 1: " + prizeAmt[0] + " Prize allowed 1: "+ prizeAll[0]);
             loadButtons();
         }catch (Exception e) { e.printStackTrace(); }
@@ -141,6 +145,8 @@ String serial;
         prize14.setText(amt14);
         String amt15 = Integer.toString(prizeAmt[14]);
         prize15.setText(amt15);
+        String Slsamt = Integer.toString(lsamt);
+        btnLS.setText(Slsamt);
     }
     public void setPrizetotal(int amount){
         System.out.println("setPrizetotal received amount: " + amount);
@@ -155,58 +161,9 @@ String serial;
         //TODO: Add to actual prizes, remove prize from remaining prizes
         Transaction trans = new Transaction();
         int invoice = Transaction.invoiceNum;
-        
         trans.Transaction(bin2, serial, 0, amount, gameName, invoice);
-        
-//        Selling sell = new Selling();
-//        int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
-//        double total = sell.getTotal();
-//        total = total - prizetotal;//minus the total sales(if any) from the amount of the prizes
-//        System.out.println("Prize total imported: "+ prizetotal);//testing output
-//        //sell.setDisplay(amount);
-//        sell.setTotal(total);
-//        String str = Double.toString(total);
-//        sell.textTotal.setText(str);
-        
-
-//        PreparedStatement updateTicketPrize = null;
-//        PreparedStatement updateTill = null;
-//         String updateTillString = "INSERT INTO `fire_tickets`.`till_tape` (`serial`, `name`, `time`, `sale_amount`, `prize_amount`, `users_user_id`, `customers_cust_id`, `locations_loc_id`, invoice) VALUES (?, 'prize', ?, '0', ?, '3', '3', '1','000105')";
-//         String updateTicketPrizeString = "UPDATE tickets set prize_rem1 = ?, prize_rem2 = ?, prize_rem3 = ?, prize_rem4 = ?, prize_rem5 = ?, prize_rem6 = ?, prize_rem7 = ?, prize_rem8 = ?, prize_rem9 = ? WHERE serial = ?";
-//         try{
-//             con = DbConnect.getConnection();
-//             updateTill = con.prepareStatement(updateTillString,PreparedStatement.RETURN_GENERATED_KEYS);
-//             con.setAutoCommit(false);
-//             updateTill.setString(1,serial);
-//             updateTill.setTimestamp(2, getCurrentTimeStamp());
-//             updateTill.setInt(3, amount);
-//             //updateTill.setInt(4, );
-//             updateTill.executeUpdate();
-//             ResultSet key = updateTill.getGeneratedKeys();
-//             System.out.println("key " + key);
-//             con.commit();
-//             }catch(SQLException e ) {
-//                Utilities.printSQLException(e);
-//                if (con != null) {
-//                try {
-//                System.err.print("Transaction is being rolled back");
-//                con.rollback();
-//            } catch(SQLException excep) {
-//                Utilities.printSQLException(excep);
-//            }
-//                            }
-//            } finally {
-//        if (updateTill != null) {
-//            updateTill.close();
-//        }
-////        if (updateTicket != null) {
-////            updateTicket.close();
-////        }
-//        con.setAutoCommit(true);
-//    }
 }
     private static java.sql.Timestamp getCurrentTimeStamp() {
-
         java.util.Date today = new java.util.Date();
         return new java.sql.Timestamp(today.getTime());
 
@@ -238,6 +195,7 @@ String serial;
         prize15 = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
+        btnLS = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -307,6 +265,11 @@ String serial;
         prize14.setText("jButton14");
 
         prize15.setText("jButton15");
+        prize15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prize15ActionPerformed(evt);
+            }
+        });
 
         jToggleButton1.setText("Multiple winners");
         jToggleButton1.setEnabled(false);
@@ -323,6 +286,13 @@ String serial;
             }
         });
 
+        btnLS.setText("Last Sale");
+        btnLS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -333,34 +303,35 @@ String serial;
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(prize1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(prize8)
                             .addComponent(jLabel1)
                             .addComponent(prize5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(prize6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(prize3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(prize2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(prize4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(47, 47, 47)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jToggleButton1)
-                                        .addComponent(prize13)
-                                        .addComponent(prize12)
-                                        .addComponent(prize14)
-                                        .addComponent(prize15)
-                                        .addComponent(prize11)
-                                        .addComponent(prize10)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(prize3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(prize2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(prize4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(47, 47, 47)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jToggleButton1)
+                                    .addComponent(prize13)
+                                    .addComponent(prize12)
+                                    .addComponent(prize14)
+                                    .addComponent(prize15)
+                                    .addComponent(prize11)
+                                    .addComponent(prize10)
+                                    .addComponent(btnLS))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(prize6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(prize8)
                             .addComponent(prize7)
                             .addComponent(prize9))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,18 +364,21 @@ String serial;
                     .addComponent(prize4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(prize5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(prize5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLS, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(prize6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(prize6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(prize7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(prize8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(prize9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(prize7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(prize8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(prize9))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE))
         );
 
         pack();
@@ -417,7 +391,7 @@ String serial;
         int intPrize2 = Integer.parseInt(strPrize2);
         setPrizetotal(intPrize2);
         try{
-            //con = DbConnect.getConnection();
+            
             recordPrize(serial, intPrize2);
             int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
             total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
@@ -425,6 +399,7 @@ String serial;
             String str = Double.toString(total1);//converts double to string to display total
             Selling.textDisplay.setText("");//sets amount to 0
             Selling.textTotal.setText(str);//sets total to total1 value
+            Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize2);
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -436,13 +411,11 @@ String serial;
     }//GEN-LAST:event_jToggleButton1ActionPerformed
     private void prize1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prize1ActionPerformed
         // TODO add your handling code here:
-//        prizeRem[0] = 1;
         if(prizeRem[0] > 0){
         String strPrize1 = prize1.getText();
         int intPrize1 = Integer.parseInt(strPrize1);
         setPrizetotal(intPrize1);
         try{
-            //con = DbConnect.getConnection();
             recordPrize(serial, intPrize1);
             int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
             total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
@@ -450,6 +423,7 @@ String serial;
             String str = Double.toString(total1);//converts double to string to display total
             Selling.textDisplay.setText("");//sets amount to 0
             Selling.textTotal.setText(str);//sets total to total1 value
+            Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize1);
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -469,7 +443,6 @@ String serial;
         int intPrize3 = Integer.parseInt(strPrize3);
         setPrizetotal(intPrize3);
         try{
-            //con = DbConnect.getConnection();
             recordPrize(serial, intPrize3);
             int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
             total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
@@ -477,6 +450,7 @@ String serial;
             String str = Double.toString(total1);//converts double to string to display total
             Selling.textDisplay.setText("");//sets amount to 0
             Selling.textTotal.setText(str);//sets total to total1 value
+            Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize3);
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -490,7 +464,6 @@ String serial;
         int intPrize4 = Integer.parseInt(strPrize4);
         setPrizetotal(intPrize4);
         try{
-            //con = DbConnect.getConnection();
             recordPrize(serial, intPrize4);
             int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
             total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
@@ -498,6 +471,7 @@ String serial;
             String str = Double.toString(total1);//converts double to string to display total
             Selling.textDisplay.setText("");//sets amount to 0
             Selling.textTotal.setText(str);//sets total to total1 value
+            Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize4);
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -511,7 +485,6 @@ String serial;
         int intPrize5 = Integer.parseInt(strPrize5);
         setPrizetotal(intPrize5);
         try{
-            //con = DbConnect.getConnection();
             recordPrize(serial, intPrize5);
             int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
             total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
@@ -519,6 +492,7 @@ String serial;
             String str = Double.toString(total1);//converts double to string to display total
             Selling.textDisplay.setText("");//sets amount to 0
             Selling.textTotal.setText(str);//sets total to total1 value
+            Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize5);
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -532,7 +506,6 @@ String serial;
         int intPrize6 = Integer.parseInt(strPrize6);
         setPrizetotal(intPrize6);
         try{
-            //con = DbConnect.getConnection();
             recordPrize(serial, intPrize6);
             int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
             total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
@@ -540,6 +513,7 @@ String serial;
             String str = Double.toString(total1);//converts double to string to display total
             Selling.textDisplay.setText("");//sets amount to 0
             Selling.textTotal.setText(str);//sets total to total1 value
+            Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize6);
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -553,7 +527,6 @@ String serial;
         int intPrize7 = Integer.parseInt(strPrize7);
         setPrizetotal(intPrize7);
         try{
-            //con = DbConnect.getConnection();
             recordPrize(serial, intPrize7);
             int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
             total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
@@ -561,11 +534,38 @@ String serial;
             String str = Double.toString(total1);//converts double to string to display total
             Selling.textDisplay.setText("");//sets amount to 0
             Selling.textTotal.setText(str);//sets total to total1 value
+            Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize7);
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
         }
     }//GEN-LAST:event_prize7ActionPerformed
+
+    private void prize15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prize15ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_prize15ActionPerformed
+
+    private void btnLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLSActionPerformed
+        // TODO add your handling code here:
+        if (lsrem > 0){
+            String ls = btnLS.getText();
+            int intls = Integer.parseInt(ls);
+            setPrizetotal(intls);
+            try{
+                recordPrize(serial, intls);
+                int prizetotal = getPrizetotal();
+                total1 = total1 - prizetotal;
+                System.out.println("Prize total imported: "+ prizetotal);//testing output
+                String str = Double.toString(total1);//converts double to string to display total
+                Selling.textDisplay.setText("");//sets amount to 0
+                Selling.textTotal.setText(str);//sets total to total1 value
+                Selling.addTextLog("\nLast Sale: " + gameName + "\nAmount: " + intls);
+            }catch (Exception e) { e.printStackTrace(); }
+        }else{
+            JOptionPane.showMessageDialog(this, "There is no last sale");//needs to trigger a ticket audit
+        }
+    }//GEN-LAST:event_btnLSActionPerformed
 
     /**
      * @param args the command line arguments
@@ -603,6 +603,7 @@ String serial;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLS;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JToggleButton jToggleButton1;

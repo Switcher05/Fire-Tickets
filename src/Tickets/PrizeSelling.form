@@ -26,45 +26,45 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="prize1" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
-                          <Component id="prize8" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="prize5" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="prize6" min="-2" pref="60" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="prize3" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <Component id="prize2" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <Component id="prize4" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="prize3" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
-                                      <Component id="prize2" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
-                                      <Component id="prize4" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="prize13" min="-2" max="-2" attributes="0"/>
-                                      <Component id="prize12" min="-2" max="-2" attributes="0"/>
-                                      <Component id="prize14" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="prize15" min="-2" max="-2" attributes="0"/>
-                                      <Component id="prize11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="prize10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="prize13" min="-2" max="-2" attributes="0"/>
+                                  <Component id="prize12" min="-2" max="-2" attributes="0"/>
+                                  <Component id="prize14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="prize15" min="-2" max="-2" attributes="0"/>
+                                  <Component id="prize11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="prize10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnLS" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="prize6" min="-2" pref="60" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="prize7" min="-2" max="-2" attributes="0"/>
+                          <Component id="prize8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="prize7" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="prize9" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -108,19 +108,24 @@
                   <Component id="jToggleButton1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="prize5" min="-2" pref="60" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  <Component id="prize6" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="prize5" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="btnLS" min="-2" pref="49" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="prize7" min="-2" max="-2" attributes="0"/>
+              <Component id="prize6" min="-2" pref="60" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="prize8" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="prize9" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="prize7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="prize8" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="prize9" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jButton1" min="-2" pref="61" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -229,6 +234,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="jButton15"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="prize15ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="jToggleButton1">
       <Properties>
@@ -245,6 +253,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnLS">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Last Sale"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLSActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
