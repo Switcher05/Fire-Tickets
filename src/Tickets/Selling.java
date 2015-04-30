@@ -42,6 +42,7 @@ public class Selling extends javax.swing.JFrame {
     public int ticketCost;
     public String name;
     public String game_name;
+    public boolean saleClosed = true;
     public int unsold_amt, actual_gross, unsold_tickets, actual_prizes;
     public boolean selected = false;
     Connection con;
@@ -375,9 +376,7 @@ public class Selling extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         negativebtn = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
         bankText = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btnUndo = new javax.swing.JButton();
@@ -964,6 +963,11 @@ public class Selling extends javax.swing.JFrame {
         });
 
         textDisplay.setEditable(false);
+        textDisplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textDisplayActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setText("Amount:");
@@ -1044,24 +1048,10 @@ public class Selling extends javax.swing.JFrame {
             }
         });
 
-        jButton11.setText("Print Receipt");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-
         jButton12.setText("Adjust Bank");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
-            }
-        });
-
-        jButton13.setText("Close Prize");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
             }
         });
 
@@ -1079,14 +1069,14 @@ public class Selling extends javax.swing.JFrame {
             }
         });
 
-        btnPrintEvery.setText("Press to print every transaction");
+        btnPrintEvery.setText("Receipt Enabled/Disable");
         btnPrintEvery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrintEveryActionPerformed(evt);
             }
         });
 
-        jButton10.setText("Cry baby's button");
+        jButton10.setText("Kick drawer 1");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -1126,7 +1116,7 @@ public class Selling extends javax.swing.JFrame {
                                     .addComponent(btnHundred, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnTen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnTwenty, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAmountLayout.createSequentialGroup()
                                 .addComponent(negativebtn)
@@ -1134,62 +1124,53 @@ public class Selling extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAmountLayout.createSequentialGroup()
                                 .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnPrintEvery)
-                                    .addComponent(jLabel18))
+                                    .addComponent(jLabel18)
+                                    .addComponent(btnUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(29, 29, 29))))
                     .addGroup(pnlAmountLayout.createSequentialGroup()
                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlAmountLayout.createSequentialGroup()
                                 .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton13))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bankText, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton12))
-                            .addGroup(pnlAmountLayout.createSequentialGroup()
-                                .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(pnlAmountLayout.createSequentialGroup()
-                                        .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(btnSale, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnPrize, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(35, 35, 35)
+                                    .addComponent(jButton2)
+                                    .addComponent(jButton5)
+                                    .addComponent(btnEditTick)
+                                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(36, 36, 36)
+                                .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAmountLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jButton18)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton11))
+                                        .addGap(195, 195, 195))
                                     .addGroup(pnlAmountLayout.createSequentialGroup()
                                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton2)
-                                            .addComponent(jButton5)
-                                            .addComponent(btnEditTick))
-                                        .addGap(36, 36, 36)
-                                        .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAmountLayout.createSequentialGroup()
+                                                .addComponent(bankText, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton12))
                                             .addGroup(pnlAmountLayout.createSequentialGroup()
                                                 .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                     .addComponent(jButton9)
                                                     .addComponent(jButton3)
                                                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                     .addGroup(pnlAmountLayout.createSequentialGroup()
                                                         .addComponent(jButton4)
                                                         .addGap(0, 119, Short.MAX_VALUE))
                                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAmountLayout.createSequentialGroup()
                                                         .addGap(0, 0, Short.MAX_VALUE)
                                                         .addComponent(jButton8))))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAmountLayout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(btnUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(111, 111, 111))
                                             .addGroup(pnlAmountLayout.createSequentialGroup()
-                                                .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(pnlAmountLayout.createSequentialGroup()
-                                                        .addComponent(jButton6)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(jButton7))
-                                                    .addGroup(pnlAmountLayout.createSequentialGroup()
-                                                        .addGap(12, 12, 12)
-                                                        .addComponent(jButton10)))
-                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                                .addComponent(jButton6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jButton7))
+                                            .addComponent(jButton10))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(pnlAmountLayout.createSequentialGroup()
+                                .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btnSale, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnPrize, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(pnlAmountLayout.createSequentialGroup()
                                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(pnlAmountLayout.createSequentialGroup()
@@ -1252,39 +1233,33 @@ public class Selling extends javax.swing.JFrame {
                             .addComponent(btnNine, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnZero, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlAmountLayout.createSequentialGroup()
+                        .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSale, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnPrize, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(btnUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAmountLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(79, 79, 79)
+                        .addGap(17, 17, 17)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAmountLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton12)
-                            .addComponent(bankText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlAmountLayout.createSequentialGroup()
-                        .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pnlAmountLayout.createSequentialGroup()
-                                .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnSale, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton18))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnPrize, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(pnlAmountLayout.createSequentialGroup()
-                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton9)
-                                    .addComponent(jButton8)))
-                            .addGroup(pnlAmountLayout.createSequentialGroup()
-                                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21)
-                                .addComponent(btnEditTick)))))
+                            .addComponent(bankText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(50, 50, 50)
+                .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton9)
+                        .addComponent(jButton8))
+                    .addComponent(btnEditTick))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -1441,11 +1416,14 @@ public class Selling extends javax.swing.JFrame {
     private void btnSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaleActionPerformed
 //        Tickets ticketsObject = new Tickets();
         Transaction trans = new Transaction();
+        int invoice = 0;
         subtotal = Integer.parseInt(textDisplay.getText());
         //create if statement to detect if the getText() is empty.
         total1 = total1 + subtotal;
         bin = getButton(); //gets what button is selected
-        int invoice = trans.getInvoice();
+        
+       
+        
         if (subtotal != 0){
         try{
             con = DbConnect.getConnection();
@@ -1461,6 +1439,12 @@ public class Selling extends javax.swing.JFrame {
             unsold_tickets = rs.getInt("unsold_tickets");
 //            System.out.println("Serial = " + serial + " Unsold_amt: " + unsold_amt + " Actual gross " + actual_gross + " Unsold Tickets " + unsold_tickets);
             LOGGER.log(Level.INFO, "Serial = {0} Unsold_amt: {1} Actual gross {2} Unsold Tickets {3}", new Object[]{serial, unsold_amt, actual_gross, unsold_tickets});
+            if (saleClosed = true){
+                invoice = trans.setInvoice();
+                saleClosed = false;
+                }else{
+                    invoice = Transaction.invoiceNum;
+            }
             trans.Transaction(bin, serial, subtotal, 0, game_name, invoice);
 //            amount = ticketsObject.Sale(unsold_amt, actual_gross, unsold_tickets, subtotal, serial, ticketCost, game_name);
             textLog.append("\nSale: " + game_name + " \nAmount: " + subtotal);
@@ -1557,6 +1541,7 @@ public class Selling extends javax.swing.JFrame {
             }
             total1 = 0;
             textTotal.setText("");
+            saleClosed = true;
             prize.setPrizetotal(0);
             togbtnSetEnabledFalse();
             StarReceiptTest print = new StarReceiptTest();
@@ -1731,11 +1716,6 @@ public class Selling extends javax.swing.JFrame {
         new Tender().setVisible(true);
     }//GEN-LAST:event_jButton18ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton11ActionPerformed
-
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         //adjust start bank
          String bankStart = bankText.getText();
@@ -1756,16 +1736,6 @@ public class Selling extends javax.swing.JFrame {
      
         
     }//GEN-LAST:event_jButton12ActionPerformed
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
-        int prizetotal = prize.getPrizetotal();//gets the total value of the prizes selected 
-        total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
-        System.out.println("Prize total imported: "+ prizetotal);//testing output
-        String str = Double.toString(total1);//converts double to string to display total
-        textDisplay.setText("");//sets amount to 0
-        textTotal.setText(str);//sets total to total1 value
-       
-    }//GEN-LAST:event_jButton13ActionPerformed
     public void setDisplay(int amount){
         String str = Double.toString(amount);
         textDisplay.setText(str);
@@ -1832,6 +1802,10 @@ public class Selling extends javax.swing.JFrame {
         kick.runTest();
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    private void textDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDisplayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textDisplayActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1896,9 +1870,7 @@ public class Selling extends javax.swing.JFrame {
     private javax.swing.JLabel dateLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1952,9 +1924,9 @@ public class Selling extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JButton negativebtn;
     private javax.swing.JPanel pnlAmount;
-    private javax.swing.JTextField textDisplay;
+    public static javax.swing.JTextField textDisplay;
     public javax.swing.JTextArea textLog;
-    public javax.swing.JTextField textTotal;
+    public static javax.swing.JTextField textTotal;
     private javax.swing.JLabel timeLabel;
     public javax.swing.JToggleButton togbtn1;
     private javax.swing.JToggleButton togbtn10;

@@ -89,7 +89,7 @@ public class StarReceiptTest implements OutputCompleteListener, StatusUpdateList
 //                formatLine(10, 0, "2MR2432", "Hawg Joes");
             Transaction trans = new Transaction();
                 array = getArray();
-		System.setProperty(	JposPropertiesConst.JPOS_POPULATOR_FILE_PROP_NAME, "jpos.xml");
+		System.setProperty(	JposPropertiesConst.JPOS_POPULATOR_FILE_PROP_NAME, "\\\\WIN-UI54OA8049S\\Treasurer\\dist\\jpos.xml");
 
 		String ESC = ((char) 0x1b) + "";
 		String LF = ((char) 0x0a) + "";
@@ -164,12 +164,12 @@ public class StarReceiptTest implements OutputCompleteListener, StatusUpdateList
 //				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|rA" + "Tender:    2200" + LF);
 //				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|rA" + ESC + "|bC" + "Change:      16" + LF);
 				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, LF);
-
+                                String invoicenum = Integer.toString(Transaction.invoiceNum);
 				if (printer.getCapRecBarCode() == true) {
 					// print a Code 3 of 9 barcode with the data "123456789012" encoded
 					// the 10 * 100, 60 * 100 parameters below specify the barcode's
 					// height and width in the metric map mode (1cm tall, 6cm wide)
-					printer.printBarCode(POSPrinterConst.PTR_S_RECEIPT, "123456789012", POSPrinterConst.PTR_BCS_Code39,
+					printer.printBarCode(POSPrinterConst.PTR_S_RECEIPT, invoicenum, POSPrinterConst.PTR_BCS_Code39,
 							10 * 100, 60 * 100, POSPrinterConst.PTR_BC_CENTER, POSPrinterConst.PTR_BC_TEXT_BELOW);
 				}
 

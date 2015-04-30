@@ -49,7 +49,7 @@ public class StarCashDrawerTest implements StatusUpdateListener {
 		 * the internet then uncomment the second System.setProperty line below
 		 * and specify the full URL to jpos.xml.
 		 */
-		System.setProperty(JposPropertiesConst.JPOS_POPULATOR_FILE_PROP_NAME, "jpos.xml");
+		System.setProperty(JposPropertiesConst.JPOS_POPULATOR_FILE_PROP_NAME, "\\\\WIN-UI54OA8049S\\Treasurer\\dist\\jpos.xml");
 		// System.setProperty(JposPropertiesConst.JPOS_POPULATOR_FILE_URL_PROP_NAME, "http://some-where-remote.com/jpos.xml");
 
 		// instantiate a new jpos.CashDrawer object
@@ -107,7 +107,7 @@ public class StarCashDrawerTest implements StatusUpdateListener {
 		}
 
 		System.out.println("StarCashDrawerTest finished.");
-		System.exit(0);
+		//System.exit(0);
 	}
 
 	public static void main(String[] args) {

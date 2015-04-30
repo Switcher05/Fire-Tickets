@@ -20,7 +20,7 @@ public class Transaction {
     Connection c;
     PreparedStatement pstmt;
     ResultSet rs;
-    public int invoiceNum;
+    public static int invoiceNum;
     public int sessionid;
     public int sales = 0, prizes = 0;
     StarReceiptTest print = new StarReceiptTest();
@@ -67,7 +67,7 @@ public class Transaction {
         return new java.sql.Timestamp(today.getTime());
 
     }
-    public void setInvoice()throws SQLException, Exception {
+    public int setInvoice()throws SQLException, Exception {
     PreparedStatement selectInvoice = null;
     String selectInvoiceNum = "Select MAX(till_tape.invoice) AS Invoice FROM till_tape";
     try{
@@ -96,7 +96,7 @@ public class Transaction {
             selectInvoice.close();
         }
         c.setAutoCommit(true);
-    }
+    }return invoiceNum;
     }
     public int getInvoice(){
         return invoiceNum;

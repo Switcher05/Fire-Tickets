@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Tickets;
+import static Tickets.Selling.total1;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -153,7 +154,8 @@ String serial;
     public void recordPrize(String serial, int amount)throws SQLException, Exception{
         //TODO: Add to actual prizes, remove prize from remaining prizes
         Transaction trans = new Transaction();
-        int invoice = trans.getInvoice();
+        int invoice = Transaction.invoiceNum;
+        
         trans.Transaction(bin2, serial, 0, amount, gameName, invoice);
         
 //        Selling sell = new Selling();
@@ -417,6 +419,12 @@ String serial;
         try{
             //con = DbConnect.getConnection();
             recordPrize(serial, intPrize2);
+            int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
+            total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
+            System.out.println("Prize total imported: "+ prizetotal);//testing output
+            String str = Double.toString(total1);//converts double to string to display total
+            Selling.textDisplay.setText("");//sets amount to 0
+            Selling.textTotal.setText(str);//sets total to total1 value
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -436,6 +444,12 @@ String serial;
         try{
             //con = DbConnect.getConnection();
             recordPrize(serial, intPrize1);
+            int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
+            total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
+            System.out.println("Prize total imported: "+ prizetotal);//testing output
+            String str = Double.toString(total1);//converts double to string to display total
+            Selling.textDisplay.setText("");//sets amount to 0
+            Selling.textTotal.setText(str);//sets total to total1 value
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -457,6 +471,12 @@ String serial;
         try{
             //con = DbConnect.getConnection();
             recordPrize(serial, intPrize3);
+            int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
+            total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
+            System.out.println("Prize total imported: "+ prizetotal);//testing output
+            String str = Double.toString(total1);//converts double to string to display total
+            Selling.textDisplay.setText("");//sets amount to 0
+            Selling.textTotal.setText(str);//sets total to total1 value
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -472,6 +492,12 @@ String serial;
         try{
             //con = DbConnect.getConnection();
             recordPrize(serial, intPrize4);
+            int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
+            total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
+            System.out.println("Prize total imported: "+ prizetotal);//testing output
+            String str = Double.toString(total1);//converts double to string to display total
+            Selling.textDisplay.setText("");//sets amount to 0
+            Selling.textTotal.setText(str);//sets total to total1 value
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -487,6 +513,12 @@ String serial;
         try{
             //con = DbConnect.getConnection();
             recordPrize(serial, intPrize5);
+            int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
+            total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
+            System.out.println("Prize total imported: "+ prizetotal);//testing output
+            String str = Double.toString(total1);//converts double to string to display total
+            Selling.textDisplay.setText("");//sets amount to 0
+            Selling.textTotal.setText(str);//sets total to total1 value
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -502,6 +534,12 @@ String serial;
         try{
             //con = DbConnect.getConnection();
             recordPrize(serial, intPrize6);
+            int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
+            total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
+            System.out.println("Prize total imported: "+ prizetotal);//testing output
+            String str = Double.toString(total1);//converts double to string to display total
+            Selling.textDisplay.setText("");//sets amount to 0
+            Selling.textTotal.setText(str);//sets total to total1 value
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -517,6 +555,12 @@ String serial;
         try{
             //con = DbConnect.getConnection();
             recordPrize(serial, intPrize7);
+            int prizetotal = getPrizetotal();//gets the total value of the prizes selected 
+            total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
+            System.out.println("Prize total imported: "+ prizetotal);//testing output
+            String str = Double.toString(total1);//converts double to string to display total
+            Selling.textDisplay.setText("");//sets amount to 0
+            Selling.textTotal.setText(str);//sets total to total1 value
         }catch (Exception e) { e.printStackTrace(); }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
@@ -569,7 +613,7 @@ String serial;
     private javax.swing.JButton prize13;
     private javax.swing.JButton prize14;
     private javax.swing.JButton prize15;
-    private javax.swing.JButton prize2;
+    public javax.swing.JButton prize2;
     private javax.swing.JButton prize3;
     private javax.swing.JButton prize4;
     private javax.swing.JButton prize5;
