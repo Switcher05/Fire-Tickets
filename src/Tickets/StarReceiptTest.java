@@ -54,9 +54,6 @@ public class StarReceiptTest implements OutputCompleteListener, StatusUpdateList
        
         
         public void formatLine(int saleamount, int prizeamount, String serial, String name){
-//            qty = 10;
-//            serial = "2V43563";
-//            name = "Crazy Joes";
             setTotal(saleamount, prizeamount);
             String line = saleamount + "    " + prizeamount +"        " + serial + "    " + name;
             setLine(line);
@@ -84,10 +81,6 @@ public class StarReceiptTest implements OutputCompleteListener, StatusUpdateList
             return array;
         }
 	public void runTest() {
-//                formatLine(10, 0, "2MR2432", "Hawg Joes");
-//                formatLine(10, 0, "2MR2432", "Hawg Joes");
-//                formatLine(10, 0, "2MR2432", "Hawg Joes");
-            Transaction trans = new Transaction();
                 array = getArray();
 		System.setProperty(	JposPropertiesConst.JPOS_POPULATOR_FILE_PROP_NAME, "\\\\WIN-UI54OA8049S\\Treasurer\\dist\\jpos.xml");
 
@@ -148,21 +141,15 @@ public class StarReceiptTest implements OutputCompleteListener, StatusUpdateList
 				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|cA" + ESC + "|bC" + "133 Stone Road, Belpre OH" + LF);
 				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|cA" + ESC + "|bC" + "740-423-7234" + LF);
                                 printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|cA" + ESC + "|bC" + "Bingo EVERY Friday 7pm" + LF);
+                                printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|cA" + ESC + "|bC" + Transaction.getCurrentTimeStamp() + LF);
 
 				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|uC" + "Sale  Prize    Serial     Game Name" +
 						SPACES.substring(0, printer.getRecLineChars() - "Sale    Prize      Serial     Game Name".length()) + LF);
                                 while(itr.hasNext()){
                                    printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, itr.next() + LF); 
                                 }
-                                
 				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, LF);
                                 printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|rA" + ESC + "|bC" + "Total: $" + getTotal() + LF);
-//                                printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|cA" + ESC + "|bC" + trans.getInvoice() + LF);
-//				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|rA" + "Subtotal:  2160" + LF);
-//				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|rA" + "Tax:         24" + LF);
-//				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|rA" + ESC + "|bC" + "Total:     2184" + LF);
-//				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|rA" + "Tender:    2200" + LF);
-//				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, ESC + "|rA" + ESC + "|bC" + "Change:      16" + LF);
 				printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, LF);
                                 String invoicenum = Integer.toString(Transaction.invoiceNum);
 				if (printer.getCapRecBarCode() == true) {

@@ -101,8 +101,6 @@ private static final Logger LOGGER = Logger.getLogger(LoggerExample.class.getNam
             while(rs.next()){
             String serial = rs.getString("serial");
             int amount = rs.getInt("sale_amount");
-//            ReceiptArray receipt = new ReceiptArray();
-            //receipt.captureSales(amount, serial, "Crazy hoes");
             }
             rs.next();
             c.commit();

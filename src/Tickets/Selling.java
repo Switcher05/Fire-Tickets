@@ -425,6 +425,7 @@ public class Selling extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Games:"));
 
+        togbtn1.setBackground(new java.awt.Color(255, 255, 255));
         togbtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 togbtn1ActionPerformed(evt);
@@ -1514,11 +1515,9 @@ public class Selling extends javax.swing.JFrame {
         togbtn30.setSelected(false);
     }
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-        //Tickets ticketsObject = new Tickets();
         Transaction transObject = new Transaction();
         StarCashDrawerTest kick = new StarCashDrawerTest();
-        
-//        if(total1 != 0){
+
         total1 = Double.parseDouble(textTotal.getText());    
             try {
                 setTotal(total1);
@@ -1552,10 +1551,6 @@ public class Selling extends javax.swing.JFrame {
                  print.clearLines();
              }
              kick.runTest();
-//        }else{
-//            System.err.println("Total is set to 0");
-//            JOptionPane.showMessageDialog(this, "Can't close, total is 0");
-//        }
     }//GEN-LAST:event_btnCloseActionPerformed
     public void setTotal(double total){
         this.total1 = total;
@@ -1568,7 +1563,6 @@ public class Selling extends javax.swing.JFrame {
     }
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         subtotal = 0;
-//        System.out.println("User pressed the clear button, setting subtotal to 0");
         LOGGER.info("User pressed the clear button, setting subtotal to 0");
         textDisplay.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
@@ -1588,7 +1582,6 @@ public class Selling extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -1598,7 +1591,7 @@ public class Selling extends javax.swing.JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
-    public void addTextLog(String text){
+    public static void addTextLog(String text){
         textLog.append(text);
     }
     public int getButton(){
@@ -1678,28 +1671,14 @@ public class Selling extends javax.swing.JFrame {
         return selected;
     }
     private void btnPrizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrizeActionPerformed
-       
-        //PrizeSelling prize = new PrizeSelling();
         bin = 0;
         bin = getButton(); //gets what button is selected to load the correct prizes for correct game
         if(bin == 0){
             System.err.println("No game selected");
-            
         }else{
         prize.DBconnect(bin);//sends bin number to prize loading method
         prize.setVisible(true);//create prize selection window
         }
-
-//       subtotal = Integer.parseInt(textDisplay.getText());
-//       total1 = total1 - subtotal;
-//       int prizetotal = prize.getPrizetotal();//gets the total value of the prizes selected 
-//       total1 = total1 - prizetotal;//minus the total sales(if any) from the amount of the prizes
-//       System.out.println("Prize total imported: "+ prizetotal);//testing output
-//       String str = Double.toString(total1);//converts double to string to display total
-//       textDisplay.setText("");//sets amount to 0
-//       textTotal.setText(str);//sets total to total1 value
-        
-        
     }//GEN-LAST:event_btnPrizeActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -1722,16 +1701,16 @@ public class Selling extends javax.swing.JFrame {
         PreparedStatement updateBankStart = null;
         String updateBank_Start = "INSERT INTO sale_sessions(start_bank) VALUES (?)";
         try{
-        con = DbConnect.getConnection();
-        updateBankStart = con.prepareStatement(updateBank_Start);
-//        c.setAutoCommit(false);
-        updateBankStart.setString(1, bankStart);
-        updateBankStart.executeUpdate();
-        LOGGER.log(Level.INFO, "Inserted into start cash: {0}", bankStart);
-        textLog.append("\n**********");
-        textLog.append("\nAdded starting cash: " + bankStart);
-        textLog.append("\n**********");
-//        c.commit();
+            con = DbConnect.getConnection();
+            updateBankStart = con.prepareStatement(updateBank_Start);
+//            c.setAutoCommit(false);
+            updateBankStart.setString(1, bankStart);
+            updateBankStart.executeUpdate();
+            LOGGER.log(Level.INFO, "Inserted into start cash: {0}", bankStart);
+            textLog.append("\n**********");
+            textLog.append("\nAdded starting cash: " + bankStart);
+            textLog.append("\n**********");
+//            c.commit();
         }catch (Exception e) { e.printStackTrace(); }
      
         
@@ -1925,7 +1904,7 @@ public class Selling extends javax.swing.JFrame {
     private javax.swing.JButton negativebtn;
     private javax.swing.JPanel pnlAmount;
     public static javax.swing.JTextField textDisplay;
-    public javax.swing.JTextArea textLog;
+    public static javax.swing.JTextArea textLog;
     public static javax.swing.JTextField textTotal;
     private javax.swing.JLabel timeLabel;
     public javax.swing.JToggleButton togbtn1;
