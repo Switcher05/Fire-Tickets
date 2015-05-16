@@ -20,8 +20,8 @@ public class Transaction {
     Connection c;
     PreparedStatement pstmt;
     ResultSet rs;
-    public static int invoiceNum;
-    public int sessionid;
+    public static int invoiceNum = 0;
+    public int sessionid = 0;
     public int sales = 0, prizes = 0;
     StarReceiptTest print = new StarReceiptTest();
     public void Transaction(int bin, String serial, int saleAmount, int prizeAmount, String gameName, int invoice) throws SQLException, Exception {

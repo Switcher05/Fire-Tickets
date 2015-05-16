@@ -28,7 +28,7 @@ import jpos.events.StatusUpdateEvent;
 import jpos.events.StatusUpdateListener;
 import jpos.util.JposPropertiesConst;
 
-public class StarCashDrawerTest implements StatusUpdateListener {
+public class StarCashDrawerTest implements StatusUpdateListener, Runnable {
 	public void statusUpdateOccurred(StatusUpdateEvent e) {
 		int drawerStatus = e.getStatus();
 
@@ -39,7 +39,7 @@ public class StarCashDrawerTest implements StatusUpdateListener {
 		}
 	}
 
-	public void runTest() {
+	public void run() {
 		/*
 		 * If you want to place the jpos.xml file elsewhere on your local file
 		 * system then uncomment the following line and specify the full path to
@@ -111,6 +111,6 @@ public class StarCashDrawerTest implements StatusUpdateListener {
 	}
 
 	public static void main(String[] args) {
-		new StarCashDrawerTest().runTest();
+		new StarCashDrawerTest().run();
 	}
 }
