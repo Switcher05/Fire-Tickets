@@ -1682,30 +1682,83 @@ public class Selling extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUndoActionPerformed
-        // TODO add your handling code here:
+        int t_id, samount=0, pamount=0, closed=0,unsold1 =0, unsold2 =0,prizes=0, prizes2, utickets=0,utickets2=0, gross=0, gross2 = 0;
+        double total = 0;
         PreparedStatement voidSale = null;
         PreparedStatement voidSale2 = null;
-        String voidSaleString = "SELECT MAX(t_id) AS TID from till_tape";
+        PreparedStatement selectBad = null;
+        PreparedStatement reverse = null;
+        String voidSaleString = "SELECT serial, sale_amount, prize_amount, sale_closed, MAX(t_id) AS TID from till_tape WHERE t_id = (SELECT MAX(t_id) AS TID from till_tape)";
         String voidSaleString2 = "DELETE FROM till_tape WHERE t_id = ?";
+        String selectBadTicket = "SELECT `Unsold_amt`,`Actual_gross`,`Actual_prizes`, `Unsold_tickets` FROM `tickets` WHERE `Serial` = ?";
+        String reverseTickets = "UPDATE tickets set unsold_amt = ?, actual_gross = ?, actual_prizes = ?, unsold_tickets = ? WHERE 'serial' = ?";
         try{
+        
         con = DbConnect.getConnection();
         voidSale = con.prepareStatement(voidSaleString);
         voidSale2 = con.prepareStatement(voidSaleString2);
+        selectBad = con.prepareStatement(selectBadTicket);
+        reverse = con.prepareStatement(reverseTickets);
 //        c.setAutoCommit(false);
         rs = voidSale.executeQuery();
         rs.next();
-        int t_id = rs.getInt("TID");
+        t_id = rs.getInt("TID");
+        String serial2 = rs.getString("serial");
+        samount = rs.getInt("sale_amount");
+        pamount = rs.getInt("prize_amount");
+        closed = rs.getInt("sale_closed");
         voidSale2.setInt(1, t_id);
         voidSale2.executeUpdate();
+        total = getTotal();
+        total = total - samount;
+        setTotal(total);
+        if(closed == 1){
+        selectBad.setString(1,serial2);
+        rs = selectBad.executeQuery();
+        rs.next();
+        unsold1 = rs.getInt("Unsold_amt");
+        gross = rs.getInt("actual_gross");
+        prizes = rs.getInt("actual_prizes");
+        utickets = rs.getInt("unsold_tickets");
+        unsold2 = unsold1 + samount;
+        utickets2 = utickets + samount;
+        gross2 = gross - samount;
+        prizes2 = prizes - pamount;
+        reverse.setInt(1, unsold2);
+        reverse.setInt(2, gross2);
+        reverse.setInt(3, prizes2);
+        reverse.setInt(4, utickets2);
+        reverse.setString(5, serial2);
+        reverse.executeUpdate(); 
+        }
+        
+        rs.close();
         
         LOGGER.log(Level.INFO, "Deleted from till tape: {0}", t_id);
         textLog.append("\n**********");
         textLog.append("\nDeleted t_id: " + t_id);
+        textLog.append("\n Old unsold amount: " + unsold1 + " New amount: " + unsold2);
+        textLog.append("\n Old actual gross: " + gross + " New gross: " + gross2);
         textLog.append("\n**********");
         setTotal(0);
         textTotal.setText("");
 //        c.commit();
         }catch (Exception e) { e.printStackTrace(); }
+    }                                       
+
+    private void btnPrintEveryActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+        if (btnPrintEvery.isSelected()){
+            textLog.append("\n ***********");
+        textLog.append("\n Printing enabled");
+        textLog.append("\n ***********");
+        } else{
+            textLog.append("\n ***********");
+        textLog.append("\n Printing disabled ");
+        textLog.append("\n ***********");
+        }
+        
+       
     }//GEN-LAST:event_btnUndoActionPerformed
 
     private void btnPrintEveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintEveryActionPerformed
