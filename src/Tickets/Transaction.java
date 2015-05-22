@@ -77,10 +77,8 @@ public class Transaction {
         rs = selectInvoice.executeQuery();
         rs.next();
         invoiceNum = rs.getInt("invoice");
-//        LOGGER.log(Level.INFO, "Invoice num: {0}", invoice_num);
         invoiceNum = invoiceNum + 1;
         System.out.println("Invoice number: " + invoiceNum);
-//        LOGGER.log(Level.INFO, "Invoice num: {0}", invoice_num2);
     }catch (SQLException e ) {
         Utilities.printSQLException(e);
         if (c != null) {
@@ -126,7 +124,6 @@ public class Transaction {
             updateCash = c.prepareStatement(updateCashString);
             c.setAutoCommit(false);
             rs = selectTill.executeQuery();
-//            rs.next();
             while(rs.next()){
                 int sale_amount = rs.getInt("sale_amount");
                 int prize_amount = rs.getInt("prize_amount");
@@ -137,7 +134,7 @@ public class Transaction {
                 int actual_net = rs.getInt("actual_net");
                 int unsold_tickets = rs.getInt("unsold_tickets");
                 int invoiceNum = rs.getInt("invoice");
-                System.out.println("BEFORE:Sale amount: " + sale_amount + " Prize amount: " + prize_amount + " Serial: " + serial + " Unsold amount: " + unsold_amt + " Actual gross: " + actual_gross + " Actual prizes: " + actual_prizes + "Actual net: " + actual_net);
+//                System.out.println("BEFORE:Sale amount: " + sale_amount + " Prize amount: " + prize_amount + " Serial: " + serial + " Unsold amount: " + unsold_amt + " Actual gross: " + actual_gross + " Actual prizes: " + actual_prizes + "Actual net: " + actual_net);
                 salesOut.add(sale_amount);
                 prizes = prizes + prize_amount;
                 unsold_amt = unsold_amt - sale_amount;
@@ -146,7 +143,7 @@ public class Transaction {
                 actual_net = actual_gross - actual_prizes;
                 unsold_tickets = unsold_tickets - sale_amount;
                 System.out.println("Calculated net: " + actual_net);
-                System.out.println("AFTER:Sale amount: " + sale_amount + " Prize amount: " + prize_amount + " Serial: " + serial + " Unsold amount: " + unsold_amt + " Actual gross: " + actual_gross + " Actual prizes: " + actual_prizes + "Actual net: " + actual_net);
+//                System.out.println("AFTER:Sale amount: " + sale_amount + " Prize amount: " + prize_amount + " Serial: " + serial + " Unsold amount: " + unsold_amt + " Actual gross: " + actual_gross + " Actual prizes: " + actual_prizes + "Actual net: " + actual_net);
                 updateTill.setInt(1, invoiceNum);
                 updateTill.executeUpdate();
                 updateTicket.setInt(1, unsold_amt);
@@ -156,11 +153,10 @@ public class Transaction {
                 updateTicket.setInt(5, unsold_tickets);
                 updateTicket.setString(6, serial);
                 updateTicket.executeUpdate();
-                System.out.println("Updated ticket: " + serial);
+//                System.out.println("Updated ticket: " + serial);
                 System.out.println("Sales total : " + sales + " Prizes total: " + prizes);
                 
             }
-           // rs.close();
             rs = selectLast.executeQuery();
             rs.next();
             int id = rs.getInt("Id");
@@ -174,8 +170,7 @@ public class Transaction {
             int prizetotal = rs.getInt("gross_prizes");
             int nettotal = rs.getInt("gross_net");
             int currentbank = rs.getInt("currentbank");
-            System.out.println("Gross sales: " + grosstotal + " Gross prizes: " + prizetotal + " Net: " + nettotal + " Current Bank: " + currentbank);
-//            Iterator<Integer> itr = salesOut.iterator();
+//            System.out.println("Gross sales: " + grosstotal + " Gross prizes: " + prizetotal + " Net: " + nettotal + " Current Bank: " + currentbank);
             for (int i = 0; i < salesOut.size(); i++) {
                 grosstotal = grosstotal + salesOut.get(i);
             }
@@ -189,7 +184,7 @@ public class Transaction {
             updateCash.setInt(4, currentbank);
             updateCash.setInt(5, sessionid);
             updateCash.executeUpdate();
-            System.out.println("Updated sale sessions");
+//            System.out.println("Updated sale sessions");
             c.commit();
             rs.close();
             System.out.println("===========SALE CLOSED===========");
@@ -222,15 +217,4 @@ public class Transaction {
         c.setAutoCommit(true);
         }
     }
-//    public static void main(String[] args){
-//        Transaction trans = new Transaction();
-//        
-//        try{
-//            trans.setInvoice();
-//            trans.Transaction(1,"2V23363",10,0,"Crazy Joes");
-//            trans.TransClose();
-//            
-//        }catch (Exception e) { e.printStackTrace(); }
-//        
-//    }
     }

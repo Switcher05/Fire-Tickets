@@ -92,7 +92,7 @@ public class StarCashDrawerTest implements StatusUpdateListener, Runnable {
 
 			// just wait for 5000ms to watch StatusUpdateEvent
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(500);
 			} catch (Exception e) {
 			}
 		} catch (JposException e) {

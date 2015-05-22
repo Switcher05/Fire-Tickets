@@ -5,6 +5,8 @@
  */
 package Tickets;
 import static Tickets.Selling.total1;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +14,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,6 +44,7 @@ int lsrem = 0;
 int lsamt = 0;
 String gameName;
 String serial;
+String soundName = "chaching.wav"; 
 
 
     /**
@@ -396,7 +405,21 @@ String serial;
             Selling.textDisplay.setText("");//sets amount to 0
             Selling.textTotal.setText(str);//sets total to total1 value
             Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize2);
+            prizeRem[1] = prizeRem[1] - 1;
         }catch (Exception e) { e.printStackTrace(); }
+            try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
         }
@@ -418,6 +441,20 @@ String serial;
             Selling.textTotal.setText(str);//sets total to total1 value
             Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize1);
         }catch (Exception e) { e.printStackTrace(); }
+           
+            try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
         }
@@ -445,6 +482,19 @@ String serial;
             Selling.textTotal.setText(str);//sets total to total1 value
             Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize3);
         }catch (Exception e) { e.printStackTrace(); }
+        try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
         }
@@ -466,6 +516,19 @@ String serial;
             Selling.textTotal.setText(str);//sets total to total1 value
             Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize4);
         }catch (Exception e) { e.printStackTrace(); }
+        try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
         }
@@ -487,6 +550,19 @@ String serial;
             Selling.textTotal.setText(str);//sets total to total1 value
             Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize5);
         }catch (Exception e) { e.printStackTrace(); }
+        try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
         }
@@ -508,6 +584,19 @@ String serial;
             Selling.textTotal.setText(str);//sets total to total1 value
             Selling.addTextLog("\nPrize: " + gameName + "\nAmount: " + strPrize6);
         }catch (Exception e) { e.printStackTrace(); }
+        try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "There are not enough winners left.");//needs to trigger a ticket audit
         }
@@ -555,6 +644,19 @@ String serial;
                 Selling.textTotal.setText(str);//sets total to total1 value
                 Selling.addTextLog("\nLast Sale: " + gameName + "\nAmount: " + intls);
             }catch (Exception e) { e.printStackTrace(); }
+            try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             JOptionPane.showMessageDialog(this, "There is no last sale");//needs to trigger a ticket audit
         }

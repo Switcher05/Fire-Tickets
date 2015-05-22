@@ -25,6 +25,12 @@ import javax.swing.JOptionPane;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 /**
  *
  * @author Switcher
@@ -40,6 +46,7 @@ public class Selling extends javax.swing.JFrame implements Runnable {
     public int bin;
     public String serial;
     public int ticketCost;
+    public int generatedKey = 0;
     public String name;
     public String game_name;
     public boolean saleClosed = true;
@@ -51,6 +58,7 @@ public class Selling extends javax.swing.JFrame implements Runnable {
     PreparedStatement pstmt;
     int curRow = 0;
     FileHandler fh;
+    String soundName = "chaching.wav"; 
 
     PrizeSelling prize = new PrizeSelling();
 
@@ -385,6 +393,9 @@ public class Selling extends javax.swing.JFrame implements Runnable {
         btnUndo = new javax.swing.JButton();
         btnPrintEvery = new javax.swing.JToggleButton();
         jButton10 = new javax.swing.JButton();
+        closingfield = new javax.swing.JTextField();
+        jButton11 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         timeLabel = new javax.swing.JLabel();
@@ -1030,6 +1041,20 @@ public class Selling extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        jButton11.setText("Closing cash");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jButton13.setText("Kick drawer 2");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlAmountLayout = new javax.swing.GroupLayout(pnlAmount);
         pnlAmount.setLayout(pnlAmountLayout);
         pnlAmountLayout.setHorizontalGroup(
@@ -1067,12 +1092,18 @@ public class Selling extends javax.swing.JFrame implements Runnable {
                                         .addComponent(jButton18)
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE))
-                                .addGroup(pnlAmountLayout.createSequentialGroup()
-                                    .addComponent(jButton10)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAmountLayout.createSequentialGroup()
+                                    .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton10)
+                                        .addComponent(jButton13))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(bankText, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(closingfield)
+                                        .addComponent(bankText, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton12)))))
+                                    .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton12)
+                                        .addComponent(jButton11))))))
                     .addGroup(pnlAmountLayout.createSequentialGroup()
                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1128,9 +1159,7 @@ public class Selling extends javax.swing.JFrame implements Runnable {
                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnPrintEvery)
                             .addComponent(jLabel18)))
-                    .addGroup(pnlAmountLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
         );
         pnlAmountLayout.setVerticalGroup(
@@ -1193,7 +1222,9 @@ public class Selling extends javax.swing.JFrame implements Runnable {
                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlAmountLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlAmountLayout.createSequentialGroup()
                                 .addGap(17, 17, 17)
                                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -1202,7 +1233,11 @@ public class Selling extends javax.swing.JFrame implements Runnable {
                         .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton12)
                             .addComponent(bankText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(60, 60, 60)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(closingfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton11))
+                .addGap(32, 32, 32)
                 .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton9)
@@ -1362,7 +1397,6 @@ public class Selling extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btnHundredActionPerformed
 
     private void btnSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaleActionPerformed
-//        Tickets ticketsObject = new Tickets();
         Transaction trans = new Transaction();
         int invoice = 0;
         subtotal = Integer.parseInt(textDisplay.getText());
@@ -1483,6 +1517,19 @@ public class Selling extends javax.swing.JFrame implements Runnable {
                 textLog.append("\n==========");
             }
             total1 = 0;
+            try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }
             textTotal.setText("");
             saleClosed = true;
             prize.setPrizetotal(0);
@@ -1494,6 +1541,20 @@ public class Selling extends javax.swing.JFrame implements Runnable {
              }else{
                  print.clearLines();
              }
+             String soundName = "chaching.wav";    
+            try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (UnsupportedAudioFileException ex) {
+                Logger.getLogger(Selling.class.getName()).log(Level.SEVERE, null, ex);
+            }
              kick.run();
     }//GEN-LAST:event_btnCloseActionPerformed
     public void setTotal(double total){
@@ -1512,7 +1573,7 @@ public class Selling extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnEditTickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditTickActionPerformed
-        //edit the selected ticket from toggle button, if more than one, deselect all and pop up error message
+        //TODO:edit the selected ticket from toggle button, if more than one, deselect all and pop up error message
         TicketsEditor edittick = new TicketsEditor();
         edittick.setVisible(true);
     }//GEN-LAST:event_btnEditTickActionPerformed
@@ -1533,8 +1594,8 @@ public class Selling extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-        // Delete invoice number
+        // TODO add your handling code here: Delete invoice number
+        // 
         // SQL find invoice number
         // look up serial number of games, minus from gross, add to unsold amt and unsold tickets
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -1604,7 +1665,6 @@ public class Selling extends javax.swing.JFrame implements Runnable {
             bin = 30;
         } else{
             System.err.println("No game selected");
-//            JOptionPane.showMessageDialog(this, "No game select");
         }
         return bin;
     }
@@ -1649,18 +1709,21 @@ public class Selling extends javax.swing.JFrame implements Runnable {
         String updateBank_Start = "INSERT INTO sale_sessions(start_bank) VALUES (?)";
         try{
             con = DbConnect.getConnection();
-            updateBankStart = con.prepareStatement(updateBank_Start);
-//            c.setAutoCommit(false);
+            updateBankStart = con.prepareStatement(updateBank_Start,Statement.RETURN_GENERATED_KEYS);
             updateBankStart.setString(1, bankStart);
             updateBankStart.executeUpdate();
+            rs = updateBankStart.getGeneratedKeys();
+            
+            if(rs.next()){
+                generatedKey = rs.getInt(1);
+              
+            }
+            System.out.println("Inserted record's ID: " + generatedKey);
             LOGGER.log(Level.INFO, "Inserted into start cash: {0}", bankStart);
             textLog.append("\n**********");
             textLog.append("\nAdded starting cash: " + bankStart);
             textLog.append("\n**********");
-//            c.commit();
         }catch (Exception e) { e.printStackTrace(); }
-     
-        
     }//GEN-LAST:event_jButton12ActionPerformed
     public void setDisplay(int amount){
         String str = Double.toString(amount);
@@ -1671,7 +1734,6 @@ public class Selling extends javax.swing.JFrame implements Runnable {
         String str = Double.toString(amount);
         textTotal.setText(str);
     }
-
     private void togbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_togbtn1ActionPerformed
 
     }//GEN-LAST:event_togbtn1ActionPerformed
@@ -1679,6 +1741,7 @@ public class Selling extends javax.swing.JFrame implements Runnable {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         DoConnect();
+        textLog.append("****REFRESHED****");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUndoActionPerformed
@@ -1744,25 +1807,12 @@ public class Selling extends javax.swing.JFrame implements Runnable {
         textTotal.setText("");
 //        c.commit();
         }catch (Exception e) { e.printStackTrace(); }
-    }                                       
+                                           
 
-    private void btnPrintEveryActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-        if (btnPrintEvery.isSelected()){
-            textLog.append("\n ***********");
-        textLog.append("\n Printing enabled");
-        textLog.append("\n ***********");
-        } else{
-            textLog.append("\n ***********");
-        textLog.append("\n Printing disabled ");
-        textLog.append("\n ***********");
-        }
-        
-       
     }//GEN-LAST:event_btnUndoActionPerformed
 
     private void btnPrintEveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintEveryActionPerformed
-        // TODO add your handling code here:
+        
         if (btnPrintEvery.isSelected()){
             textLog.append("\n ***********");
         textLog.append("\n Printing enabled");
@@ -1772,7 +1822,6 @@ public class Selling extends javax.swing.JFrame implements Runnable {
         textLog.append("\n Printing disabled ");
         textLog.append("\n ***********");
         }
-        
     }//GEN-LAST:event_btnPrintEveryActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -1784,6 +1833,32 @@ public class Selling extends javax.swing.JFrame implements Runnable {
     private void textDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDisplayActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textDisplayActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        //adjust start bank
+        String bankclose = closingfield.getText();
+        PreparedStatement updateBankclosing = null;
+        String updateBank_closing = "UPDATE sale_sessions SET endingbank =? WHERE id =?";
+        try{
+            con = DbConnect.getConnection();
+            updateBankclosing = con.prepareStatement(updateBank_closing);
+            updateBankclosing.setString(1, bankclose);
+            updateBankclosing.setInt(2, generatedKey);
+            updateBankclosing.executeUpdate();
+            LOGGER.log(Level.INFO, "Inserted into start cash: {0}", bankclose);
+            textLog.append("\n**********");
+            textLog.append("\nAdded closing cash: " + bankclose + " to id: " + generatedKey);
+            textLog.append("\n**********");
+
+        }catch (Exception e) { e.printStackTrace(); }
+     
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here: Change to kick drawer 2
+        StarCashDrawerTest kick = new StarCashDrawerTest();
+        kick.run();
+    }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1845,11 +1920,14 @@ public class Selling extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton btnTwo;
     private javax.swing.JButton btnUndo;
     private javax.swing.JButton btnZero;
+    private javax.swing.JTextField closingfield;
     private javax.swing.JLabel currentTime;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
