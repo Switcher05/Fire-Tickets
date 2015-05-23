@@ -17,6 +17,7 @@ import java.util.LinkedList;
  * @author Switcher
  */
 public class Transaction {
+    
     Connection c;
     PreparedStatement pstmt;
     ResultSet rs;
@@ -24,6 +25,7 @@ public class Transaction {
     public int sessionid = 0;
     public int sales = 0, prizes = 0;
     StarReceiptTest print = new StarReceiptTest();
+    
     public void Transaction(int bin, String serial, int saleAmount, int prizeAmount, String gameName, int invoice) throws SQLException, Exception {
         PreparedStatement addTrans = null;
         String addTransString = "INSERT INTO fire_tickets.till_tape (serial, name, time, sale_amount, prize_amount, users_user_id, customers_cust_id, locations_loc_id, invoice) VALUES (?, ?, ?, ?, ?, '3', '3', '1', ?)";
